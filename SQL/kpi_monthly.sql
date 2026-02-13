@@ -3,6 +3,7 @@
 -- Create monthly KPIs with MoM and YoY growth
 -- Built on top of the single analytical base (retail_base)
 
+
 CREATE OR REPLACE VIEW analytics.kpi_monthly AS
 
 -- STEP 1: Aggregate order-line data to month level
