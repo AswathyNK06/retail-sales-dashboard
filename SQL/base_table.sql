@@ -2,6 +2,7 @@
 -- This view creates a single, clean analytical base
 -- Grain: one row per order per product (order line level)
 
+
 CREATE OR REPLACE VIEW analytics.retail_base AS
 
 -- STEP 1: Clean the raw orders table
