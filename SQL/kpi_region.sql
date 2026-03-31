@@ -1,30 +1,30 @@
--- sql/kpi_monthly.sql
+-- sql/kpi_region.sql
 -- Purpose:
--- Create monthly KPIs with MoM and YoY growth
+-- Create regional monthly KPIs with MoM and YoY growth
 -- Built on top of the single analytical base (retail_base)
 
+CREATE OR REPLACE VIEW analytics.kpi_region AS
 
-CREATE OR REPLACE VIEW analytics.kpi_monthly AS
-
--- STEP 1: Aggregate order-line data to month level
-WITH monthly_agg AS (
+-- STEP 1: Aggregate order-line data to region + month level
+WITH region_agg AS (
     SELECT
+        region_name,                         -- region (e.g. North, South)
         order_month,                         -- month (e.g. 2025-01-01)
-        
+
         -- Core KPIs
-        SUM(net_revenue) AS revenue,         -- total revenue for the month
+        SUM(net_revenue) AS revenue,         -- total revenue for the region in that month
         SUM(quantity) AS units_sold,         -- total units sold
         SUM(profit) AS profit,               -- total profit
-        
-        -- Margin at monthly level
+
+        -- Margin at region-month level
         CASE
             WHEN SUM(net_revenue) = 0 THEN NULL
             ELSE SUM(profit) / SUM(net_revenue)
-        END AS margin, -- Note: monthly margin here is not “average of row margins”. It is profit sum divided by revenue sum. That is correct.
-        
-        COUNT(DISTINCT order_id) AS orders,   -- number of orders
+        END AS margin,
 
-        -- total discount amount for the month
+        COUNT(DISTINCT order_id) AS orders,  -- number of distinct orders
+
+        -- total discount amount for that region-month
         SUM(discount_amount) AS total_discount,
 
         -- total revenue before discount
@@ -43,30 +43,45 @@ WITH monthly_agg AS (
         END AS discount_pct
 
     FROM analytics.retail_base
-    GROUP BY order_month
+    GROUP BY region_name, order_month
 ),
 
 -- STEP 2: Add previous month values using window functions
 mom_calc AS (
     SELECT
-        ma.*,
+        ra.*,
 
-        -- Revenue last month
-        LAG(revenue) OVER (ORDER BY order_month) AS prev_month_revenue,
+        -- Revenue last month for the same region
+        LAG(revenue) OVER (
+            PARTITION BY region_name
+            ORDER BY order_month
+        ) AS prev_month_revenue,
 
-        -- Profit last month
-        LAG(profit) OVER (ORDER BY order_month) AS prev_month_profit,
+        -- Units sold last month for the same region
+        LAG(units_sold) OVER (
+            PARTITION BY region_name
+            ORDER BY order_month
+        ) AS prev_month_units_sold,
 
-        -- Units sold last month
-        LAG(units_sold) OVER (ORDER BY order_month) AS prev_month_units_sold,
+        -- Profit last month for the same region
+        LAG(profit) OVER (
+            PARTITION BY region_name
+            ORDER BY order_month
+        ) AS prev_month_profit,
 
-        -- Average selling price last month
-        LAG(avg_selling_price) OVER (ORDER BY order_month) AS prev_month_avg_selling_price,
+        -- Average selling price last month for the same region
+        LAG(avg_selling_price) OVER (
+            PARTITION BY region_name
+            ORDER BY order_month
+        ) AS prev_month_avg_selling_price,
 
-        -- Discount % last month
-        LAG(discount_pct) OVER (ORDER BY order_month) AS prev_month_discount_pct
+        -- Discount % last month for the same region
+        LAG(discount_pct) OVER (
+            PARTITION BY region_name
+            ORDER BY order_month
+        ) AS prev_month_discount_pct
 
-    FROM monthly_agg ma
+    FROM region_agg ra
 ),
 
 -- STEP 3: Add same-month-last-year values
@@ -74,27 +89,42 @@ yoy_calc AS (
     SELECT
         mc.*,
 
-        -- Revenue in the same month last year
-        LAG(revenue, 12) OVER (ORDER BY order_month) AS prev_year_revenue,
-        -- LAG(revenue,12) means “12 rows back”
+        -- Revenue in the same month last year for the same region
+        LAG(revenue, 12) OVER (
+            PARTITION BY region_name
+            ORDER BY order_month
+        ) AS prev_year_revenue,
 
-        -- Profit in the same month last year
-        LAG(profit, 12) OVER (ORDER BY order_month) AS prev_year_profit,
+        -- Units sold in the same month last year for the same region
+        LAG(units_sold, 12) OVER (
+            PARTITION BY region_name
+            ORDER BY order_month
+        ) AS prev_year_units_sold,
 
-        -- Units sold in the same month last year
-        LAG(units_sold, 12) OVER (ORDER BY order_month) AS prev_year_units_sold,
+        -- Profit in the same month last year for the same region
+        LAG(profit, 12) OVER (
+            PARTITION BY region_name
+            ORDER BY order_month
+        ) AS prev_year_profit,
 
-        -- Average selling price in the same month last year
-        LAG(avg_selling_price, 12) OVER (ORDER BY order_month) AS prev_year_avg_selling_price,
+        -- Average selling price in the same month last year for the same region
+        LAG(avg_selling_price, 12) OVER (
+            PARTITION BY region_name
+            ORDER BY order_month
+        ) AS prev_year_avg_selling_price,
 
-        -- Discount % in the same month last year
-        LAG(discount_pct, 12) OVER (ORDER BY order_month) AS prev_year_discount_pct
+        -- Discount % in the same month last year for the same region
+        LAG(discount_pct, 12) OVER (
+            PARTITION BY region_name
+            ORDER BY order_month
+        ) AS prev_year_discount_pct
 
     FROM mom_calc mc
 )
 
 -- STEP 4: Final select with growth calculations
 SELECT
+    region_name,
     order_month,
     revenue,
     units_sold,
@@ -167,4 +197,4 @@ SELECT
     END AS discount_pct_yoy_change
 
 FROM yoy_calc
-ORDER BY order_month;
+ORDER BY region_name, order_month;

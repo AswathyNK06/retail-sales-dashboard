@@ -21,7 +21,7 @@ WITH cleaned_orders AS (
         -- If discount is NULL, treat it as zero
         COALESCE(CAST(o.discount_amount AS NUMERIC), 0) AS discount_amount
 
-    FROM orders o
+    FROM public.orders o
 
     -- Basic data quality filters
     WHERE o.order_id IS NOT NULL
@@ -78,15 +78,15 @@ enriched_orders AS (
     FROM cleaned_orders co
 
     -- Join product table to get category and cost
-    LEFT JOIN products p
+    LEFT JOIN public.products p
         ON co.product_id = p.product_id
 
     -- Join customer table (names useful for drill-down, not default views)
-    LEFT JOIN customers c
+    LEFT JOIN public.customers c
         ON co.customer_id = c.customer_id
 
     -- Join region table
-    LEFT JOIN regions r
+    LEFT JOIN public.regions r
         ON co.region_id = r.region_id
 )
 
@@ -96,6 +96,9 @@ SELECT
 
     -- Margin = profit divided by revenue
     -- Protect against divide-by-zero
-eo.profit * 1.0 / NULLIF(eo.net_revenue, 0) AS margin
+CASE 
+    WHEN eo.net_revenue = 0 THEN NULL
+    ELSE eo.profit / eo.net_revenue
+END AS margin
 
 FROM enriched_orders eo;
