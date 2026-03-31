@@ -1,0 +1,145 @@
+product_id,product_name,category,cost_per_unit
+1001,Headphones V1,Electronics,35.19
+1002,Headphones V2,Electronics,72.01
+1003,Headphones V3,Electronics,30.48
+1004,Bluetooth Speaker V1,Electronics,25.81
+1005,Bluetooth Speaker V2,Electronics,74.61
+1006,Bluetooth Speaker V3,Electronics,78.29
+1007,Smartwatch V1,Electronics,17.71
+1008,Smartwatch V2,Electronics,34.91
+1009,Smartwatch V3,Electronics,24.89
+1010,Tablet Cover V1,Electronics,52.42
+1011,Tablet Cover V2,Electronics,85.08
+1012,Tablet Cover V3,Electronics,16.35
+1013,Phone Charger V1,Electronics,32.31
+1014,Phone Charger V2,Electronics,68.58
+1015,Phone Charger V3,Electronics,19.76
+1016,Webcam V1,Electronics,28.95
+1017,Webcam V2,Electronics,104
+1018,Webcam V3,Electronics,55.29
+1019,Keyboard V1,Electronics,65.33
+1020,Keyboard V2,Electronics,50.28
+1021,Keyboard V3,Electronics,95.22
+1022,Mouse V1,Electronics,54.06
+1023,Mouse V2,Electronics,86.82
+1024,Mouse V3,Electronics,55.22
+1025,Blender V1,Home & Kitchen,47.32
+1026,Blender V2,Home & Kitchen,41.63
+1027,Blender V3,Home & Kitchen,63.3
+1028,Cookware Set V1,Home & Kitchen,12
+1029,Cookware Set V2,Home & Kitchen,53.75
+1030,Cookware Set V3,Home & Kitchen,38.24
+1031,Air Fryer V1,Home & Kitchen,46.65
+1032,Air Fryer V2,Home & Kitchen,45.13
+1033,Air Fryer V3,Home & Kitchen,25.49
+1034,Storage Box V1,Home & Kitchen,33.93
+1035,Storage Box V2,Home & Kitchen,14.14
+1036,Storage Box V3,Home & Kitchen,32.27
+1037,Coffee Maker V1,Home & Kitchen,27.92
+1038,Coffee Maker V2,Home & Kitchen,50.97
+1039,Coffee Maker V3,Home & Kitchen,60.11
+1040,Vacuum Flask V1,Home & Kitchen,44.7
+1041,Vacuum Flask V2,Home & Kitchen,27.92
+1042,Vacuum Flask V3,Home & Kitchen,23.5
+1043,Knife Set V1,Home & Kitchen,31.74
+1044,Knife Set V2,Home & Kitchen,37.81
+1045,Knife Set V3,Home & Kitchen,27.87
+1046,Pan V1,Home & Kitchen,36.11
+1047,Pan V2,Home & Kitchen,23.79
+1048,Pan V3,Home & Kitchen,23.26
+1049,T-Shirt V1,Fashion,20.93
+1050,T-Shirt V2,Fashion,32.4
+1051,T-Shirt V3,Fashion,25.34
+1052,Jeans V1,Fashion,29.53
+1053,Jeans V2,Fashion,36.84
+1054,Jeans V3,Fashion,26.09
+1055,Jacket V1,Fashion,10.7
+1056,Jacket V2,Fashion,11.66
+1057,Jacket V3,Fashion,21.24
+1058,Sneakers V1,Fashion,50.49
+1059,Sneakers V2,Fashion,51.72
+1060,Sneakers V3,Fashion,26.31
+1061,Backpack V1,Fashion,8.29
+1062,Backpack V2,Fashion,7.84
+1063,Backpack V3,Fashion,6.26
+1064,Scarf V1,Fashion,22.66
+1065,Scarf V2,Fashion,30.7
+1066,Scarf V3,Fashion,26.1
+1067,Cap V1,Fashion,39.44
+1068,Cap V2,Fashion,55.89
+1069,Cap V3,Fashion,44.55
+1070,Socks V1,Fashion,50.32
+1071,Socks V2,Fashion,17
+1072,Socks V3,Fashion,52.91
+1073,Face Wash V1,Beauty,31.04
+1074,Face Wash V2,Beauty,5.65
+1075,Face Wash V3,Beauty,17.97
+1076,Serum V1,Beauty,6.51
+1077,Serum V2,Beauty,32.59
+1078,Serum V3,Beauty,10.03
+1079,Moisturizer V1,Beauty,28.58
+1080,Moisturizer V2,Beauty,8.17
+1081,Moisturizer V3,Beauty,3.77
+1082,Lipstick V1,Beauty,20.86
+1083,Lipstick V2,Beauty,32.16
+1084,Lipstick V3,Beauty,19.49
+1085,Shampoo V1,Beauty,28.11
+1086,Shampoo V2,Beauty,8.6
+1087,Shampoo V3,Beauty,18.09
+1088,Conditioner V1,Beauty,27.88
+1089,Conditioner V2,Beauty,25.52
+1090,Conditioner V3,Beauty,16.05
+1091,Sunscreen V1,Beauty,20.63
+1092,Sunscreen V2,Beauty,3.81
+1093,Sunscreen V3,Beauty,20.2
+1094,Perfume V1,Beauty,16.06
+1095,Perfume V2,Beauty,28.3
+1096,Perfume V3,Beauty,11.13
+1097,Yoga Mat V1,Sports,17.48
+1098,Yoga Mat V2,Sports,58.19
+1099,Yoga Mat V3,Sports,30.57
+1100,Dumbbells V1,Sports,49.62
+1101,Dumbbells V2,Sports,9.79
+1102,Dumbbells V3,Sports,49.07
+1103,Football V1,Sports,18.4
+1104,Football V2,Sports,79.39
+1105,Football V3,Sports,52.76
+1106,Cycling Bottle V1,Sports,31.35
+1107,Cycling Bottle V2,Sports,41.62
+1108,Cycling Bottle V3,Sports,35.57
+1109,Resistance Band V1,Sports,15.37
+1110,Resistance Band V2,Sports,83.28
+1111,Resistance Band V3,Sports,58.18
+1112,Running Shorts V1,Sports,43.77
+1113,Running Shorts V2,Sports,34.43
+1114,Running Shorts V3,Sports,74.34
+1115,Tennis Racket V1,Sports,47.94
+1116,Tennis Racket V2,Sports,16.72
+1117,Tennis Racket V3,Sports,40.37
+1118,Gym Gloves V1,Sports,43.13
+1119,Gym Gloves V2,Sports,19.13
+1120,Gym Gloves V3,Sports,35.45
+1121,Olive Oil V1,Grocery,5.73
+1122,Olive Oil V2,Grocery,5.28
+1123,Olive Oil V3,Grocery,2.93
+1124,Cereal V1,Grocery,3.2
+1125,Cereal V2,Grocery,5.48
+1126,Cereal V3,Grocery,5.1
+1127,Coffee Beans V1,Grocery,3.93
+1128,Coffee Beans V2,Grocery,8.94
+1129,Coffee Beans V3,Grocery,1.79
+1130,Protein Bar V1,Grocery,4.81
+1131,Protein Bar V2,Grocery,6.67
+1132,Protein Bar V3,Grocery,15.1
+1133,Pasta V1,Grocery,4.23
+1134,Pasta V2,Grocery,2.37
+1135,Pasta V3,Grocery,10.75
+1136,Tea Pack V1,Grocery,10.21
+1137,Tea Pack V2,Grocery,2
+1138,Tea Pack V3,Grocery,5.11
+1139,Chocolate Box V1,Grocery,15.29
+1140,Chocolate Box V2,Grocery,8.51
+1141,Chocolate Box V3,Grocery,8.84
+1142,Granola V1,Grocery,5.48
+1143,Granola V2,Grocery,6.41
+1144,Granola V3,Grocery,12.38
