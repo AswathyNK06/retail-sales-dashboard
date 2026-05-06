@@ -1,7 +1,7 @@
 # Retail Sales Dashboard
 
 ## Project Overview
-This project analyses retail sales performance across regions, categories and products using SQL (PostgreSQL) and Tableau. The goal is to help business stakeholders understand overall performance trends, identify what is driving revenue and profit changes, and highlight where action is needed.
+This project analyses retail sales performance across regions, categories and products using SQL (PostgreSQL) and Tableau. The dashboard is designed to support interactive business analysis through dynamic filtering and drill-down capabilities.
 
 ## Business Problem
 Retail leadership often sees high-level sales numbers but struggles to quickly understand why the performance is changing. This project is designed to answer questions such as:
@@ -29,26 +29,31 @@ The dataset is stored in the `data/` folder as CSV files.
 Raw tables are stored in the `public` schema.
 
 Analytical views are created in the `analytics` schema:
-- `analytics.retail_base`
+- `analytics.retail_base` (primary Tableau dashboard source)
 - `analytics.kpi_monthly`
 - `analytics.kpi_region`
 - `analytics.kpi_product`
 
+The final Tableau dashboard is built primarily from `analytics.retail_base`, which is the lowest-grain analytical view. This allows the dashboard filters, such as month and region, to work consistently across KPIs, trends and regional views.
+
+The KPI views are retained as supporting analytical views for validation, faster aggregation checks and comparison during development.
+
 ## Grain
-The main analytical base is built at:
-- one row per order per product
+The main analytical base (`analytics.retail_base`) is built at:
+- one row per order-product combination
 
 This allows flexible analysis by month, region, category and product.
+This became the primary Tableau data source because it supports flexible filtering across month, region, category and product.
 
 ## Key Metrics
 The project tracks:
 - Revenue
 - Units sold
 - Profit
-- Margin
+- Margin: calculated as SUM(profit) / SUM(net revenue), not as a sum of row-level margins
 - Gross revenue
 - Discount amount
-- Discount percentage
+- Discount percentage: calculated as SUM(discount amount) / SUM(gross revenue)
 - Average selling price
 - MoM growth
 - YoY growth
@@ -56,16 +61,16 @@ The project tracks:
 ## SQL Views Built
 
 ### 1. `retail_base`
-A clean analytical base created from the raw transactional tables. It joins source tables and calculates business-ready measures such as gross revenue, net revenue, cost, profit and margin.
+Primary analytical view used for the final Tableau dashboard. It is built at order-line level and includes cleaned business-ready fields such as gross revenue, net revenue, discount amount, cost, profit, margin, region, category and product.
 
 ### 2. `kpi_monthly`
-Monthly KPI view used to analyse overall business performance over time. Includes MoM and YoY changes for revenue, units sold, profit, average selling price and discount percentage.
+Supporting KPI view used to validate monthly performance metrics and growth calculations such as MoM and YoY changes.
 
 ### 3. `kpi_region`
-Regional monthly KPI view used to compare region-level performance.
+Supporting regional KPI view used to validate region-level revenue, profit and margin calculations.
 
 ### 4. `kpi_product`
-Category + product + month KPI view used to analyse product-level and category-level performance trends.
+Supporting product-level KPI view used to validate category and product performance calculations.
 
 ## Tools Used
 - PostgreSQL
